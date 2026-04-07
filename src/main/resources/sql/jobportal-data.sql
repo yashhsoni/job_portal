@@ -59,6 +59,193 @@ INSERT INTO companies (name, logo, industry, size, rating, locations, founded, d
 
 INSERT INTO companies (name, logo, industry, size, rating, locations, founded, description, employees, website, created_by) VALUES ('Figma', '/logos/figma.png', 'Technology', 'Medium', 4.7, 'San Francisco,New York,London', 2012, 'Figma is a leading technology company founded in 2012. We''re committed to innovation and creating exceptional experiences for our customers and employees.', 1000, 'https://www.figma.com', 'SYSTEM');
 
+--jobs data without reqirement and benefits
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Influencer Marketing Manager', 6, 'Remote', 'Remote', 'Part-time',
+--         'Marketing', 'Executive Level', 151000, 278000, 'USD', 'year', 'We are looking for a results-driven Influencer Marketing Manager to join our marketing team. You will be responsible for developing and executing marketing campaigns, analyzing performance metrics, and driving customer acquisition.',
+--         '2025-10-17 12:27:59',
+--         '2025-11-13 11:27:59', 291, TRUE, False,
+--         TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Accountant', 7, 'Salt Lake City, UT', 'Hybrid', 'Full-time',
+--         'Finance', 'Mid Level', 78000, 122000, 'USD', 'year', 'Join our innovative team as a Accountant! You''ll work on cutting-edge projects, implement best practices, and help scale our technology infrastructure to support millions of users worldwide.',
+--         '2025-10-02 17:27:59',
+--         '2025-11-24 11:27:59', 32, False, False,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Procurement Manager', 2, 'Bangalore, India', 'Hybrid', 'Full-time',
+--         'Operations', 'Mid Level', 55000, 105000, 'USD', 'year', 'Join our innovative team as a Procurement Manager! You''ll work on cutting-edge projects, implement best practices, and help scale our technology infrastructure to support millions of users worldwide.',
+--         '2025-09-28 07:27:59',
+--         '2025-12-08 11:27:59', 448, False, False,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Sales Manager', 19, 'Remote', 'Hybrid', 'Freelance',
+--         'Sales', 'Executive Level', 148000, 251000, 'USD', 'year', 'We''re seeking a passionate Sales Manager to help build the future of our platform. You''ll work with modern technologies, participate in code reviews, and mentor junior developers.',
+--         '2025-09-26 07:27:59',
+--         '2025-12-20 11:27:59', 227, False, False,
+--         TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Production Manager', 18, 'Singapore', 'On-site', 'Freelance',
+--         'Operations', 'Mid Level', 72000, 113000, 'USD', 'year', 'We''re seeking a passionate Production Manager to help build the future of our platform. You''ll work with modern technologies, participate in code reviews, and mentor junior developers.',
+--         '2025-10-14 08:27:59',
+--         '2025-12-07 11:27:59', 293, False, False,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Mental Health Counselor', 29, 'Remote', 'Remote', 'Full-time',
+--         'Healthcare', 'Executive Level', 158000, 279000, 'USD', 'year', 'We''re seeking a passionate Mental Health Counselor to help build the future of our platform. You''ll work with modern technologies, participate in code reviews, and mentor junior developers.',
+--         '2025-09-23 20:27:59',
+--         '2025-12-12 11:27:59', 158, False, False,
+--         TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Corporate Finance Manager', 19, 'Remote', 'Hybrid', 'Freelance',
+--         'Finance', 'Executive Level', 181000, 344000, 'USD', 'year', 'We''re seeking a passionate Corporate Finance Manager to help build the future of our platform. You''ll work with modern technologies, participate in code reviews, and mentor junior developers.',
+--         '2025-09-26 02:27:59',
+--         '2025-11-07 11:27:59', 185, False, False,
+--         TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Web Designer', 7, 'Remote', 'Hybrid', 'Freelance',
+--         'Design', 'Entry Level', 50000, 82000, 'USD', 'year', 'We are seeking a creative Web Designer to join our design team. You will be responsible for creating intuitive user experiences, collaborating with product managers and engineers, and maintaining our design system.',
+--         '2025-10-21 14:27:59',
+--         '2025-11-16 11:27:59', 188, False, False, TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Social Media Manager', 6, 'San Francisco, CA', 'On-site', 'Contract',
+--         'Marketing', 'Senior Level', 104000, 179000, 'USD', 'year', 'We''re seeking an experienced Social Media Manager to help grow our business. You''ll manage marketing channels, optimize conversion rates, and collaborate with sales teams to generate qualified leads.',
+--         '2025-10-01 16:27:59',
+--         '2025-12-11 11:27:59', 126, False, False,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Finance Manager', 25, 'Zurich, Switzerland', 'Hybrid', 'Part-time',
+--         'Finance', 'Senior Level', 117000, 206000, 'USD', 'year', 'We''re seeking a passionate Finance Manager to help build the future of our platform. You''ll work with modern technologies, participate in code reviews, and mentor junior developers.',
+--         '2025-09-28 08:27:59',
+--         '2025-11-27 11:27:59', 474, False, False,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Sales Representative', 29, 'Remote', 'Hybrid', 'Full-time',
+--         'Sales', 'Entry Level', 33000, 80000, 'USD', 'year', 'Join our innovative team as a Sales Representative! You''ll work on cutting-edge projects, implement best practices, and help scale our technology infrastructure to support millions of users worldwide.',
+--         '2025-09-27 08:27:59',
+--         '2025-12-17 11:27:59', 202, False, False,
+--         TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Growth Hacker', 17, 'Remote', 'Remote', 'Freelance',
+--         'Marketing', 'Senior Level', 108000, 173000, 'USD', 'year', 'We''re seeking an experienced Growth Hacker to help grow our business. You''ll manage marketing channels, optimize conversion rates, and collaborate with sales teams to generate qualified leads.',
+--         '2025-10-10 08:27:59',
+--         '2025-12-09 11:27:59', 419, False, TRUE,
+--         TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Mental Health Counselor', 23, 'Dallas, TX', 'Hybrid', 'Full-time',
+--         'Healthcare', 'Mid Level', 69000, 122000, 'USD', 'year', 'We''re seeking a passionate Mental Health Counselor to help build the future of our platform. You''ll work with modern technologies, participate in code reviews, and mentor junior developers.',
+--         '2025-10-05 16:27:59',
+--         '2025-10-30 11:27:59', 498, False, TRUE,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Software Architect', 25, 'Remote', 'Remote', 'Full-time',
+--         'Technology', 'Senior Level', 151000, 260000, 'USD', 'year', 'We''re seeking a passionate Software Architect to help build the future of our platform. You''ll work with modern technologies, participate in code reviews, and mentor junior developers.',
+--         '2025-09-27 01:27:59',
+--         '2025-11-04 11:27:59', 309, TRUE, False,
+--         TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Content Marketing Specialist', 5, 'Minneapolis, MN', 'Hybrid', 'Full-time',
+--         'Marketing', 'Executive Level', 156000, 276000, 'USD', 'year', 'We are looking for a results-driven Content Marketing Specialist to join our marketing team. You will be responsible for developing and executing marketing campaigns, analyzing performance metrics, and driving customer acquisition.',
+--         '2025-10-15 17:27:59',
+--         '2025-12-04 11:27:59', 218, False, TRUE,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('SEO Specialist', 6, 'Remote', 'Remote', 'Contract',
+--         'Marketing', 'Entry Level', 41000, 79000, 'USD', 'year', 'We''re seeking an experienced SEO Specialist to help grow our business. You''ll manage marketing channels, optimize conversion rates, and collaborate with sales teams to generate qualified leads.',
+--         '2025-10-19 15:27:59',
+--         '2025-12-03 11:27:59', 173, False, False,
+--         TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Sales Representative', 2, 'Houston, TX', 'On-site', 'Full-time',
+--         'Sales', 'Executive Level', 144000, 245000, 'USD', 'year', 'Join our innovative team as a Sales Representative! You''ll work on cutting-edge projects, implement best practices, and help scale our technology infrastructure to support millions of users worldwide.',
+--         '2025-10-12 16:27:59',
+--         '2025-10-31 11:27:59', 18, False, False,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Medical Assistant', 15, 'Charlotte, NC', 'On-site', 'Freelance',
+--         'Healthcare', 'Mid Level', 65000, 115000, 'USD', 'year', 'Join our innovative team as a Medical Assistant! You''ll work on cutting-edge projects, implement best practices, and help scale our technology infrastructure to support millions of users worldwide.',
+--         '2025-10-09 06:27:59',
+--         '2025-12-10 11:27:59', 423, TRUE, False,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Healthcare IT Specialist', 25, 'Remote', 'Remote', 'Freelance',
+--         'Healthcare', 'Executive Level', 159000, 272000, 'USD', 'year', 'We''re seeking a passionate Healthcare IT Specialist to help build the future of our platform. You''ll work with modern technologies, participate in code reviews, and mentor junior developers.',
+--         '2025-10-07 18:27:59',
+--         '2025-11-22 11:27:59', 401, False, False,
+--         TRUE, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Sales Operations Manager', 28, 'Detroit, MI', 'Hybrid', 'Full-time',
+--         'Sales', 'Entry Level', 30000, 61000, 'USD', 'year', 'We are looking for a skilled Sales Operations Manager to join our dynamic team. You will be responsible for developing high-quality software solutions, collaborating with cross-functional teams, and contributing to our technical architecture decisions.',
+--         '2025-10-02 15:27:59',
+--         '2025-12-18 11:27:59', 150, TRUE, False,
+--         False, 'ACTIVE', 'SYSTEM');
+--
+-- INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
+--                   salary_min, salary_max, salary_currency, salary_period, description,
+--                   posted_date, application_deadline, applications_count, featured, urgent, remote, status, created_by)
+-- VALUES ('Operations Director', 7, 'Remote', 'Hybrid', 'Freelance', 'Operations', 'Mid Level', 62000, 107000, 'USD', 'year', 'We''re seeking a passionate Operations Director to help build the future of our platform. You''ll work with modern technologies, participate in code reviews, and mentor junior developers.',
+--         '2025-10-14 22:27:59',
+--         '2025-11-12 11:27:59', 491, False, False,
+--         TRUE, 'ACTIVE', 'SYSTEM');
 -- Insert jobs data
 
 INSERT INTO jobs (title, company_id, location, work_type, job_type, category, experience_level,
@@ -9060,3 +9247,12 @@ VALUES ('Operations Director', 7, 'Remote', 'Hybrid', 'Freelance',
         '["Process Improvement", "Inventory Management", "Six Sigma", "Project Management", "Operations Research"]', '["Mental Health Support", "Bonus Opportunities", "Vision Insurance", "Flexible Schedule", "Disability Insurance", "Education Assistance", "Wellness Programs"]', '2025-10-14 22:27:59',
         '2025-11-12 11:27:59', 491, False, False,
         TRUE, 'ACTIVE', 'SYSTEM');
+
+INSERT INTO roles (name, created_at, created_by)
+VALUES ('ROLE_JOB_SEEKER', CURRENT_TIMESTAMP, 'DBA');
+
+INSERT INTO roles (name, created_at, created_by)
+VALUES ('ROLE_EMPLOYER', CURRENT_TIMESTAMP, 'DBA');
+
+INSERT INTO roles (name, created_at, created_by)
+VALUES ('ROLE_ADMIN', CURRENT_TIMESTAMP, 'DBA');
