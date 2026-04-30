@@ -3,15 +3,9 @@ package com.blackhat.job_portal.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -22,6 +16,31 @@ import java.util.List;
 @Table(name = "COMPANIES")
 @Getter
 @Setter
+@NamedQueries({
+        @NamedQuery(name = "Company.fetchCompaniesWithJobsByStatus", query =
+                "SELECT DISTINCT c FROM Company c JOIN FETCH c.jobs j WHERE j.status = :status"),
+        @NamedQuery(name = "Company.updateCompanyDetails",
+                query =
+                        """
+                                UPDATE Company c SET
+                                                            c.name = :name,
+                                                            c.logo = :logo,
+                                                            c.industry = :industry,
+                                                            c.size = :size,
+                                                            c.rating = :rating,
+                                                            c.locations = :locations,
+                                                            c.founded = :founded,
+                                                            c.description = :description,
+                                                            c.employees = :employees,
+                                                            c.website = :website
+                                                        WHERE c.id = :id
+                        """
+        )})
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "Company.fetchCompaniesWithJobsByStatusNative",
+                query = "SELECT DISTINCT c.* FROM companies c JOIN jobs j ON c.id = j.company_id WHERE j.status = ?",
+                resultClass = Company.class)
+})
 public class Company extends BaseEntity{
 
     @Id

@@ -10,9 +10,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    /**
+     * Configure API versioning for the application. In order for versioning to
+     * be enabled, you must configure at least one way to resolve the API
+     * version from a request (e.g. via request header).
+     *
+     * @param configurer
+     * @since 7.0
+     */
     @Override
     public void configureApiVersioning(ApiVersionConfigurer configurer) {
-        configurer.useMediaTypeParameter(MediaType.parseMediaType("application/vnd.firstapp+json"), "v").addSupportedVersions("1.0", "2.0", "3.0").setDefaultVersion("1.0");
+        configurer.useMediaTypeParameter(MediaType.parseMediaType("application/vnd.firstapp+json"), "v")
+                .addSupportedVersions("1.0", "2.0", "3.0").setDefaultVersion("1.0");
     }
 
     @Override
@@ -20,13 +29,13 @@ public class WebConfig implements WebMvcConfigurer {
         configurer.addPathPrefix("/api",__ -> true);
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:5173")
-                .allowedMethods("*")
-                .allowedHeaders("*")
-                .exposedHeaders("*")
-                .allowCredentials(true).maxAge(3600);
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/api/**")
+//                .allowedOrigins("http://localhost:5173")
+//                .allowedMethods("*")
+//                .allowedHeaders("*")
+//                .exposedHeaders("*")
+//                .allowCredentials(true).maxAge(3600);
+//    }
 }

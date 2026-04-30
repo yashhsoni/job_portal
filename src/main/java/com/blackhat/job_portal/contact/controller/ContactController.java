@@ -2,14 +2,19 @@ package com.blackhat.job_portal.contact.controller;
 
 import com.blackhat.job_portal.contact.service.IContactService;
 import com.blackhat.job_portal.dto.ContactRequestDto;
+import com.blackhat.job_portal.dto.ContactResponseDto;
 import com.blackhat.job_portal.repository.ContactRepository;
+import com.blackhat.job_portal.constants.ApplicationConstants;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/contacts")
@@ -21,7 +26,6 @@ public class ContactController {
     @PostMapping(path = "/public", version = "1.0")
     public ResponseEntity<String> saveContactMsg(@RequestBody @Valid ContactRequestDto contactRequestDto) {
         boolean isSaved = contactService.saveContact(contactRequestDto);
-
         if (isSaved) {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body("Request Processed Successfull");
@@ -31,8 +35,45 @@ public class ContactController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<String> fetchOpenContacts(@RequestParam @Validated @NotBlank (message = "Status cannot be blanked") String status){
-        return ResponseEntity.ok("These are the contact with given status" + status);
+    @GetMapping("/admin")
+    public ResponseEntity<List<ContactResponseDto>> fetchNewContactMsgs() {
+        List<ContactResponseDto> contactResponseDtos = contactService.fetchNewContactMsgs();
+        return ResponseEntity.status(HttpStatus.OK).body(contactResponseDtos);
+    }
+
+    @GetMapping("/sort/admin")
+    public ResponseEntity<List<ContactResponseDto>> fetchNewContactMsgsWithSort(
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        List<ContactResponseDto> contactResponseDtos = contactService
+                .fetchNewContactMsgsWithSort(sortBy, sortDir);
+        return ResponseEntity.status(HttpStatus.OK).body(contactResponseDtos);
+    }
+
+    @GetMapping("/page/admin")
+    public ResponseEntity<Page<ContactResponseDto>> fetchNewContactMsgsWithPaginationAndSort(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        Page<ContactResponseDto> contactResponseDtoPage = contactService
+                .fetchNewContactMsgsWithPaginationAndSort(pageNumber, pageSize, sortBy, sortDir);
+        return ResponseEntity.status(HttpStatus.OK).body(contactResponseDtoPage);
+    }
+
+//    @GetMapping
+//    public ResponseEntity<String> fetchOpenContacts(@RequestParam @Validated @NotBlank (message = "Status cannot be blanked") String status){
+//        return ResponseEntity.ok("These are the contact with given status" + status);
+//    }
+
+    @PatchMapping("/{id}/status/admin")
+    public ResponseEntity<String> closeContactMsg(@PathVariable String id)  {
+        boolean isUpdated = contactService.closeContactMsg(Long.valueOf(id),
+                ApplicationConstants.CLOSED_MESSAGE);
+        if (isUpdated) {
+            return ResponseEntity.status(HttpStatus.OK).body("Contact message updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to update contact message.");
+        }
     }
 }

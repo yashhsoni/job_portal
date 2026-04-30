@@ -1,11 +1,17 @@
 package com.blackhat.job_portal.security;
+
+import com.blackhat.job_portal.security.filter.JwtTokenValidatorFilter;
+import com.blackhat.job_portal.security.util.CorsProperties;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.password.CompromisedPasswordChecker;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -14,6 +20,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -36,37 +46,75 @@ public class JobPortalSecurityConfig {
     @Qualifier("securedPaths")
     private final List<String> securedPaths;
 
+    @Qualifier("adminPaths")
+    private final List<String> adminPaths;
+
+    @Qualifier("employerPaths")
+    private final List<String> employerPaths;
+
+    @Qualifier("jobseekerPaths")
+    private final List<String> jobseekerPaths;
+
+    private final CorsProperties corsProperties;
+
+//    @Bean
+//    SecurityFilterChain customSecurityFilterChain(HttpSecurity http) {
+//        return http.csrf(csrfConfig -> csrfConfig
+//                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
+//                .cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource()))
+//                .authorizeHttpRequests(requests -> {
+//                    publicPaths.forEach(path -> requests.requestMatchers(path).permitAll());
+//                    securedPaths.forEach(path -> requests.requestMatchers(path).authenticated());
+//                    requests.anyRequest().denyAll();
+//                })
+//                .addFilterBefore(new JwtTokenValidatorFilter(publicPaths), BasicAuthenticationFilter.class)
+//                .formLogin(flc -> flc.disable())
+//                .httpBasic(withDefaults())
+//                .build();
+//    }
 
     @Bean
     SecurityFilterChain customSecurityFilterChain(HttpSecurity http) {
-        return http.csrf(csrfConfig -> csrfConfig.disable())
-                //.cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource()))
+        return http.csrf(csrfConfig -> csrfConfig.ignoringRequestMatchers("/jobportal/actuator/**")
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
+                .cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(requests -> {
                     publicPaths.forEach(path -> requests.requestMatchers(path).permitAll());
+                    adminPaths.forEach(path -> requests.requestMatchers(path).hasRole("ADMIN"));
                     securedPaths.forEach(path -> requests.requestMatchers(path).authenticated());
+                    employerPaths.forEach(path -> requests.requestMatchers(path).hasRole("EMPLOYER"));
+                    jobseekerPaths.forEach(path -> requests.requestMatchers(path).hasRole("JOB_SEEKER"));
                     requests.anyRequest().denyAll();
                 })
-//                            requests.requestMatchers("/api/companies/public").permitAll()
-//                            .requestMatchers("/api/contacts/public").permitAll())
-//                            requests.requestMatchers(RegexRequestMatcher.regexMatcher(".*public$")).permitAll()
-//                                    .requestMatchers("/api/swagger-ui.html",
-//                                            "/swagger-ui/**",
-//                                            "/api/v3/api-docs/**",
-//                                            "/swagger-resources/**",
-//                                            "/swagger-ui.html",
-//                                            "/webjars/**").permitAll())
-                .formLogin(flc -> flc.disable() )
-                .httpBasic(withDefaults())
+                .addFilterBefore(new JwtTokenValidatorFilter(publicPaths), BasicAuthenticationFilter.class)
+                .formLogin(flc -> flc.disable())
+                .httpBasic(hbc -> hbc.disable())
+                .exceptionHandling(exception -> exception
+                                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    response.setContentType("application/json");
+                                    response.getWriter().write("{\"error\": \"Access Denied\", \"message\": \"You don't have permission to access this resource\"}");
+                                })
+//                        .authenticationEntryPoint((request, response, authException) -> {
+//                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                            response.setContentType("application/json");
+//                            response.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"Authentication required\"}");
+//                        })
+
+                )
                 .build();
     }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
-        config.setAllowedMethods(Collections.singletonList("*"));
-        config.setAllowedHeaders(Collections.singletonList("*"));
-        config.setAllowCredentials(true);
-        config.setMaxAge(3600L);
+        config.setAllowedOrigins(corsProperties.getAllowedOrigins());
+        config.setAllowedMethods(corsProperties.getAllowedMethods());
+        config.setAllowedHeaders(corsProperties.getAllowedHeaders());
+        config.setAllowCredentials(corsProperties.getAllowCredentials());
+        config.setMaxAge(corsProperties.getMaxAge());
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
@@ -74,23 +122,17 @@ public class JobPortalSecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-     var user1  = User.builder().username("groot" ).password(passwordEncoder().encode("groot@123"))
-             .roles("USER").build();
-     var user2 = User.builder().username("admin").password(passwordEncoder().encode("admin@123"))
-                .roles("USER", "ADMIN").build();
-
-     return new InMemoryUserDetailsManager(user1, user2);
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager() {
-        var authenticationProvider = new DaoAuthenticationProvider(userDetailsService());
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
+    public AuthenticationManager authenticationManager(AuthenticationProvider authenticationProvider) {
         return new ProviderManager(authenticationProvider);
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public CompromisedPasswordChecker compromisedPasswordChecker() {
+        return new HaveIBeenPwnedRestApiPasswordChecker();
     }
 }

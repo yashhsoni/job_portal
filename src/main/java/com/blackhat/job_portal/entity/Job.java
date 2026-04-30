@@ -9,6 +9,8 @@ import org.hibernate.annotations.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -105,9 +107,16 @@ public class Job extends BaseEntity {
         @Column(name = "remote")
         private Boolean remote;
 
-        @Size(max = 20)
-        @NotNull
-        @ColumnDefault("'ACTIVE'")
-        @Column(name = "status", nullable = false, length = 20)
-        private String status;
+    @Size(max = 20)
+    @NotNull
+    @ColumnDefault("'ACTIVE'")
+    @Column(name = "status", nullable = false, length = 20)
+    private String status;
+
+    @ManyToMany(mappedBy = "savedJobs")
+    private Set<JobPortalUser> savedByUsers = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "job")
+    private Set<JobApplication> jobApplications = new LinkedHashSet<>();
+
 }
